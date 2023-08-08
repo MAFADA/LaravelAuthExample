@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/verify', function () {
+    return view('auth.verify');
+})->name('verify');
+Route::post('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verify'])->name('verify');
