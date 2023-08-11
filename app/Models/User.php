@@ -41,7 +41,20 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'phone_verified_at' => 'datetime',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function userPhoneVerified()
+    {
+        return !is_null($this->phone_verified_at);
+    }
+
+    public function phoneVerifiedAt()
+    {
+        return $this->forceFill([
+            'phone_verified_at' => $this->freshTimestamp(),
+        ])->save();
+    }
 }
